@@ -4,30 +4,29 @@ trigger:
 pool:  agent5
 
 steps:
-- task:
-  displayName: "terrafom latest"
   - task: TerraformInstaller@1
+    displayName: "terrafom latest"
     inputs:
       terraformVersion: 'latest'
   
-- task:
-  displayName: "terrform init"
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'init'
+      backendServiceArm: 'vinod_conn_new'
+      backendAzureRmStorageAccountName: 'vinodstoragetest22'
+      backendAzureRmContainerName: 'container1'
+      backendAzureRmKey: 'st.terraform.tfstate'
 
-- task:
-  displayName: "terrform plan"
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'plan'
+      environmentServiceNameAzureRM: 'vinod_conn_new'
 
-- task:
-  displayName: "terrform apply"
   - task: TerraformTask@5
     inputs:
       provider: 'azurerm'
       command: 'apply'
-      commandOptions: '-auto-approve'
+      commandOptions: '--auto-approve'
+      environmentServiceNameAzureRM: 'vinod_conn_new'
