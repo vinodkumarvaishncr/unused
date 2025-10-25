@@ -10,6 +10,7 @@ steps:
       terraformVersion: 'latest'
   
   - task: TerraformTask@5
+    displayName: "terrafom init"
     inputs:
       provider: 'azurerm'
       command: 'init'
@@ -19,14 +20,17 @@ steps:
       backendAzureRmKey: 'st.terraform.tfstate'
 
   - task: TerraformTask@5
+    displayName: "terrafom plan"
     inputs:
       provider: 'azurerm'
       command: 'plan'
       environmentServiceNameAzureRM: 'vinod_conn_new'
 
   - task: TerraformTask@5
+    displayName: "terrafom apply"
     inputs:
       provider: 'azurerm'
+
       command: 'apply'
       commandOptions: '--auto-approve'
       environmentServiceNameAzureRM: 'vinod_conn_new'
