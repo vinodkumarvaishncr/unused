@@ -14,7 +14,7 @@ steps:
     inputs:
       provider: 'azurerm'
       command: 'init'
-      backendServiceArm: 'vinod_conn_new'
+      backendServiceArm: 'vinod_ado_conn'
       backendAzureRmStorageAccountName: 'vinodstoragetest22'
       backendAzureRmContainerName: 'container1'
       backendAzureRmKey: 'st.terraform.tfstate'
@@ -24,7 +24,10 @@ steps:
     inputs:
       provider: 'azurerm'
       command: 'plan'
-      environmentServiceNameAzureRM: 'vinod_conn_new'
+      environmentServiceNameAzureRM: 'vinod_ado_conn'
+    env:
+      TF_LOG: DEBUG
+      TF_LOG_PATH: $(System.DefaultWorkingDirectory)/tf-debug.log
 
   - task: TerraformTask@5
     displayName: "terrafom apply"
@@ -33,4 +36,4 @@ steps:
 
       command: 'apply'
       commandOptions: '--auto-approve'
-      environmentServiceNameAzureRM: 'vinod_conn_new'
+      environmentServiceNameAzureRM: 'vinod_ado_conn'
