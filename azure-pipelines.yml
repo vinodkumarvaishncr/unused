@@ -25,6 +25,7 @@ jobs:
       backendAzureRmStorageAccountName: 'vinodstoragetest22'
       backendAzureRmContainerName: 'container1'
       backendAzureRmKey: 'st.terraform.tfstate'
+      ensureBackend: true
 
   # Terraform validate
   - task: TerraformTask@5
