@@ -21,11 +21,10 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'init'
-      backendServiceArm: 'vinod_ado_conn'
+      backendServiceArm: 'vinod_conn_new'
       backendAzureRmStorageAccountName: 'vinodstoragetest22'
       backendAzureRmContainerName: 'container1'
       backendAzureRmKey: 'st.terraform.tfstate'
-      ensureBackend: true
 
   # Terraform validate
   - task: TerraformTask@5
@@ -40,7 +39,7 @@ jobs:
     inputs:
       provider: 'azurerm'
       command: 'plan'
-      environmentServiceNameAzureRM: 'vinod_ado_conn'
+      environmentServiceNameAzureRM: 'vinod_conn_new'
 
   # Terraform apply
   - task: TerraformTask@5
@@ -49,4 +48,4 @@ jobs:
       provider: 'azurerm'
       command: 'apply'
       commandOptions: '-auto-approve'
-      environmentServiceNameAzureRM: 'vinod_ado_conn'
+      environmentServiceNameAzureRM: 'vinod_conn_new'
