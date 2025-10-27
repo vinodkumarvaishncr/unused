@@ -1,39 +1,40 @@
 trigger:
-- main
+- none
 
-pool:  agent5
-
-steps:
-  - task: TerraformInstaller@1
-    displayName: "terrafom latest"
-    inputs:
-      terraformVersion: 'latest'
-  
-  - task: TerraformTask@5
-    displayName: "terrafom init"
-    inputs:
-      provider: 'azurerm'
-      command: 'init'
-      backendServiceArm: 'vinod_ado_conn'
-      backendAzureRmStorageAccountName: 'vinodstoragetest22'
-      backendAzureRmContainerName: 'container1'
-      backendAzureRmKey: 'st.terraform.tfstate'
-
-  - task: TerraformTask@5
-    displayName: "terrafom plan"
-    inputs:
-      provider: 'azurerm'
-      command: 'plan'
-      environmentServiceNameAzureRM: 'vinod_ado_conn'
-    env:
-      TF_LOG: DEBUG
-      TF_LOG_PATH: $(System.DefaultWorkingDirectory)/tf-debug.log
-
-  - task: TerraformTask@5
-    displayName: "terrafom apply"
-    inputs:
-      provider: 'azurerm'
-
-      command: 'apply'
-      commandOptions: '--auto-approve'
-      environmentServiceNameAzureRM: 'vinod_ado_conn'
+pool: "agent5"
+ 
+ 
+jobs:
+-  job: "terraform_init"
+   displayName: "terraform init"
+   steps:
+   - task: TerraformInstaller@1
+     displayName: "terraform install"
+     inputs:
+       terraformVersion: 'latest'
+     
+   -  task: TerraformTask@5
+      displayName: "terraform init"
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'vinod_ado_conn'
+        backendAzureRmStorageAccountName: 'vinodstoragetest22'
+        backendAzureRmContainerName: 'container1'
+        backendAzureRmKey: 'st.terraform.tfstate'
+   
+   -  task: TerraformTask@5
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+   - task: TerraformTask@5
+     inputs:
+       provider: 'azurerm'
+       command: 'plan'
+       environmentServiceNameAzureRM: 'vinod_ado_conn'
+   - task: TerraformTask@5
+     inputs:
+       provider: 'azurerm'
+       command: 'apply'
+       commandOptions: '-auto-approve'
+       environmentServiceNameAzureRM: 'vinod_ado_conn'
