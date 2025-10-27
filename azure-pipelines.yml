@@ -2,7 +2,7 @@ trigger:
 - none
 
 pool:
-  name: "agent5"
+  name: "vinodagent"
 
 jobs:
 - job: "terraform_workflow"
@@ -24,7 +24,7 @@ jobs:
       backendServiceArm: 'vinod_conn_new'
       backendAzureRmStorageAccountName: 'vinodstoragetest22'
       backendAzureRmContainerName: 'container1'
-      backendAzureRmKey: 'st.terraform.tfstate'
+      backendAzureRmKey: 'vinod.terraform.tfstate'
       ensureBackend: true
 
   # Terraform validate
