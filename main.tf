@@ -15,7 +15,6 @@ resource "azurerm_resource_group" "rg" {
     //name = "vinod-rg1-${each.value}"
     name = each.value.name
     location = each.value.location
-    //created_by = " terraform-${each.value}"
     tags =  each.value.tags
 }
 
